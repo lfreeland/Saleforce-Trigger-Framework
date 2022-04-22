@@ -63,4 +63,48 @@ public with sharing class TriggerActionSettingTest {
         system.assertEquals(false, isTriggerActionBypassed,
                             'A null Apex Class should not be bypassed.');
     }
+
+    @isTest
+    static void instantiateTriggerAction_typeDoesNotExist_expectInstantiationExceptionTest() {
+        TriggerActionSetting nonExistentApexClassTAS = new TriggerActionSetting();
+        nonExistentApexClassTAS.ApexClass = 'SomeNonExistentTriggerActionClass';
+
+        Exception instantiationException = null;
+
+        try {
+            TriggerAction ta = nonExistentApexClassTAS.instantiateTriggerAction();
+        }
+        catch (Exception ex) {
+            instantiationException = ex;
+        }
+
+        system.assert(instantiationException != null, 'There should be an exception trying to instantiate a non-existent apex class.');
+
+        String expectedErrorMessage = TriggerActionSetting.getTypeNotFoundErrorMessage(nonExistentApexClassTAS.ApexClass);
+
+        system.assertEquals(expectedErrorMessage, instantiationException.getMessage(),
+                            'The type not found error message was not encountered.');
+    }
+
+    @isTest
+    static void instantiateTriggerAction_typeDoesNotExtendTriggerAction_expectInstantiationExceptionTest() {
+        TriggerActionSetting doesNotExtendTriggerActionTAS = new TriggerActionSetting();
+        doesNotExtendTriggerActionTAS.ApexClass = 'TriggerActionSetting';
+
+        Exception instantiationException = null;
+
+        try {
+            TriggerAction ta = doesNotExtendTriggerActionTAS.instantiateTriggerAction();
+        }
+        catch (Exception ex) {
+            instantiationException = ex;
+        }
+
+        system.assert(instantiationException != null, 'There should be an exception trying to instantiate a non-existent apex class.');
+
+        String expectedErrorMessage = TriggerActionSetting.getNotTriggerActionTypeErrorMessage(doesNotExtendTriggerActionTAS.ApexClass);
+
+        system.assertEquals(expectedErrorMessage, instantiationException.getMessage(),
+                            'The not trigger action type error message was not encountered.');
+    }
 }

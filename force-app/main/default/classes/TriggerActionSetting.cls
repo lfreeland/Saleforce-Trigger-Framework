@@ -33,6 +33,14 @@ global inherited sharing class TriggerActionSetting implements Comparable {
         if (instantiatedTriggerAction == null) {
             Type triggerActionType = Type.forName(this.ApexClass);
 
+            if (triggerActionType == null) {
+                throw new InstantiationException(getTypeNotFoundErrorMessage(this.ApexClass));
+            }
+
+            if (!TriggerAction.class.isAssignableFrom(triggerActionType)) {
+                throw new InstantiationException(getNotTriggerActionTypeErrorMessage(this.ApexClass));
+            }
+
             instantiatedTriggerAction = (TriggerAction) triggerActionType.newInstance();
         }
 
@@ -60,4 +68,16 @@ global inherited sharing class TriggerActionSetting implements Comparable {
 
         return false;
     }
+
+    @testVisible
+    private static String getTypeNotFoundErrorMessage(String apexClass) {
+        return 'The type for apex class, ' + apexClass + ', was not found. Make sure that class exists and is global so the trigger framework can see it.';
+    }
+
+    @testVisible
+    private static String getNotTriggerActionTypeErrorMessage(String apexClass) {
+        return 'The apex class, ' + apexClass + ', must extend the mtl.TriggerAction apex class.';
+    }
+
+    global class InstantiationException extends Exception { }
 }

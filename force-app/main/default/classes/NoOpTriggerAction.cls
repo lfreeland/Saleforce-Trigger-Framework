@@ -1,2 +1,2 @@
 @isTest
-public class NoOpTriggerAction extends TriggerAction { }
+global class NoOpTriggerAction extends TriggerAction { }
