@@ -1,5 +1,5 @@
-public with sharing class MetadataSObjectTriggerSettingQuerier implements SObjectTriggerSettingQuerier {
-    public List<SObjectTriggerSetting> getSObjectTriggerSettings() {
+global with sharing class MetadataSObjectTriggerSettingQuerier implements SObjectTriggerSettingQuerier {
+    global List<SObjectTriggerSetting> getSObjectTriggerSettings() {
         List<sObject_Trigger_Setting__mdt> objectTriggerSettings = sObject_Trigger_Setting__mdt.getAll().values();
         List<Trigger_Action__mdt> objectTriggerActions = Trigger_Action__mdt.getAll().values();
 

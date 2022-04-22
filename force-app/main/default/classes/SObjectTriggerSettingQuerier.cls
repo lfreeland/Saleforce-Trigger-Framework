@@ -1,3 +1,3 @@
-public interface SObjectTriggerSettingQuerier {
+global interface SObjectTriggerSettingQuerier {
     List<SObjectTriggerSetting> getSObjectTriggerSettings();
 }

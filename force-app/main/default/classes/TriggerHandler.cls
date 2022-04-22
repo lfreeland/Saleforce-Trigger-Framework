@@ -1,16 +1,16 @@
-public with sharing class TriggerHandler {
+global with sharing class TriggerHandler {
     private List<TriggerAction> triggerActions;
     private SObjectTriggerSettingQuerier querier;
 
-    public TriggerHandler() {
+    global TriggerHandler() {
         this(new MetadataSObjectTriggerSettingQuerier());
     }
 
-    public TriggerHandler(SObjectTriggerSettingQuerier querierToUse) {
+    global TriggerHandler(SObjectTriggerSettingQuerier querierToUse) {
         this.querier = querierToUse;
     }
 
-    public void run() {
+    global void run() {
         TriggerActionProvider provider = new TriggerActionProvider(this.querier);
         triggerActions = provider.getSObjectTriggerActions(sobjectName);
 

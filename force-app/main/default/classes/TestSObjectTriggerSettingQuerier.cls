@@ -1,13 +1,13 @@
 @isTest
-public with sharing class TestSObjectTriggerSettingQuerier implements SObjectTriggerSettingQuerier {
+global with sharing class TestSObjectTriggerSettingQuerier implements SObjectTriggerSettingQuerier {
 
-    public List<SObjectTriggerSetting> SObjectTriggerSettings;
+    global List<SObjectTriggerSetting> SObjectTriggerSettings;
 
-    public TestSObjectTriggerSettingQuerier() {
+    global TestSObjectTriggerSettingQuerier() {
         SObjectTriggerSettings = new List<SObjectTriggerSetting>();
     }
 
-    public List<SObjectTriggerSetting> getSObjectTriggerSettings() {
+    global List<SObjectTriggerSetting> getSObjectTriggerSettings() {
         return SObjectTriggerSettings;
     }
 }

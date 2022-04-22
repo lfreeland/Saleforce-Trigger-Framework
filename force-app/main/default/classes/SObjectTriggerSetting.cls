@@ -1,23 +1,23 @@
-public with sharing class SObjectTriggerSetting {
-    public String ObjectAPIName { get; set; }
+global with sharing class SObjectTriggerSetting {
+    global String ObjectAPIName { get; set; }
 
-    public Boolean Active { get; set; }
+    global Boolean Active { get; set; }
 
-    public List<TriggerActionSetting> TriggerActionSettings { get; set; }
+    global List<TriggerActionSetting> TriggerActionSettings { get; set; }
 
-    public SObjectTriggerSetting() {
+    global SObjectTriggerSetting() {
         Active = true;
         TriggerActionSettings = new List<TriggerActionSetting>();
     }
 
-    public SObjectTriggerSetting(sObject_Trigger_Setting__mdt triggerSettingCMDT) {
+    global SObjectTriggerSetting(sObject_Trigger_Setting__mdt triggerSettingCMDT) {
         this();
 
         this.Active = triggerSettingCMDT.Active__c;
         this.ObjectAPIName = triggerSettingCMDT.Object_API_Name__c;
     }
 
-    public void sortTriggerActionsByOrder() {
+    global void sortTriggerActionsByOrder() {
         TriggerActionSettings.sort();
     }
 
@@ -29,13 +29,13 @@ public with sharing class SObjectTriggerSetting {
         }
     }
 
-    public static void clearBypass(String sobjectAPIName) {
+    global static void clearBypass(String sobjectAPIName) {
         if (String.isNotBlank(sobjectAPIName)) {
             bypassedObjects.remove(sobjectAPIName.toLowerCase());
         }
     }
 
-    public static Boolean isBypassed(String sobjectAPIName) {
+    global static Boolean isBypassed(String sobjectAPIName) {
         if (String.isNotBlank(sobjectAPIName)) {
             return bypassedObjects.contains(sobjectAPIName.toLowerCase());
         }
